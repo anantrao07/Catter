@@ -20,6 +20,10 @@ public class Vect2D {
         return new Vect2D(x - other.getX(), y - other.getY());
     }
 
+    public void reset() {
+        x = y = 0;
+    }
+
     public int getX() {
         return x;
     }

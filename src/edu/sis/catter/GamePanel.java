@@ -3,10 +3,11 @@ package edu.sis.catter;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import edu.sis.catter.model.GameObject;
+import edu.sis.catter.model.Cat;
 import edu.sis.catter.model.Vect2D;
 
 
@@ -14,7 +15,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainLoop mainLoop;
     private Thread gameThread;
 
-    private GameObject cat;
+    private Cat cat;
 
     public GamePanel(Context context) {
         super(context);
@@ -31,8 +32,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        cat = new GameObject(BitmapFactory.decodeResource(getResources(),
-                R.drawable.cat), new Vect2D(50, 50));
+        cat = new Cat(BitmapFactory.decodeResource(getResources(),
+                R.drawable.cat), new Vect2D(0, getHeight() / 2), getWidth(),
+                getHeight());
         mainLoop.setRunning(true);
         gameThread.start();
     }
@@ -51,7 +53,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
+        cat.onTouchEvent(event);
+        return true;
     }
 
     public void update() {
@@ -59,6 +62,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void render(Canvas canvas) {
+        canvas.drawColor(Color.BLACK);
         cat.render(canvas);
     }
 

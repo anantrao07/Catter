@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 
 
 public class GameObject {
-    private Vect2D position;
-    private Vect2D speed;
-    private Bitmap sprite;
+    protected Vect2D position;
+    protected Vect2D speed;
+    protected Bitmap sprite;
 
     public GameObject(Bitmap sprite, Vect2D position) {
         this.sprite = sprite;
