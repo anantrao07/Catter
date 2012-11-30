@@ -5,10 +5,18 @@ import android.os.Bundle;
 
 
 public class GameActivity extends Activity {
+    private GamePanel game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new GamePanel(this));
+        game = new GamePanel(this);
+        setContentView(game);
+    }
+
+    @Override
+    public void onBackPressed() {
+        game.getMainLoop().setRunning(false);
+        super.onBackPressed();
     }
 }
