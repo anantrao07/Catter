@@ -2,6 +2,7 @@ package edu.sis.catter.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 
 public class GameObject {
@@ -20,6 +21,28 @@ public class GameObject {
     }
 
     public void render(Canvas canvas) {
-        canvas.drawBitmap(sprite, position.getX(), position.getY(), null);
+        canvas.drawBitmap(sprite, position.x, position.y, null);
     }
+
+    public Rect getBoundingRect() {
+        return new Rect(position.x, position.y, position.x + sprite.getWidth(),
+                position.y + sprite.getHeight());
+    }
+
+    public Vect2D getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vect2D position) {
+        this.position = position;
+    }
+
+    public Vect2D getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Vect2D speed) {
+        this.speed = speed;
+    }
+
 }

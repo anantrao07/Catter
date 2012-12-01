@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 
 
 public class Cat extends GameObject {
-    private static final int VELOCITY = 8;
+    private static final int VELOCITY = 6;
 
     private int screenWidth;
     private int screenHeight;
@@ -19,19 +19,19 @@ public class Cat extends GameObject {
     public void move(Direction dir) {
         switch (dir) {
         case UP:
-            speed.setY(-VELOCITY);
+            speed.y = -VELOCITY;
             break;
 
         case DOWN:
-            speed.setY(VELOCITY);
+            speed.y = VELOCITY;
             break;
 
         case LEFT:
-            speed.setX(-VELOCITY);
+            speed.x = -VELOCITY;
             break;
 
         case RIGHT:
-            speed.setX(VELOCITY);
+            speed.x = VELOCITY;
             break;
         }
     }
@@ -44,16 +44,16 @@ public class Cat extends GameObject {
     public void update() {
         super.update();
 
-        if (position.getX() < 0) {
-            position.setX(0);
-        } else if (position.getX() >= screenWidth - sprite.getWidth()) {
-            position.setX(screenWidth - sprite.getWidth());
+        if (position.x < 0) {
+            position.x = 0;
+        } else if (position.x >= screenWidth - sprite.getWidth()) {
+            position.x = screenWidth - sprite.getWidth();
         }
 
-        if (position.getY() < 0) {
-            position.setY(0);
-        } else if (position.getY() >= screenHeight - sprite.getHeight()) {
-            position.setY(screenHeight - sprite.getHeight());
+        if (position.y < 0) {
+            position.y = 0;
+        } else if (position.y >= screenHeight - sprite.getHeight()) {
+            position.y = screenHeight - sprite.getHeight();
         }
     }
 
@@ -71,9 +71,9 @@ public class Cat extends GameObject {
                 move(Direction.RIGHT);
             }
 
-            if (y < 50) {
+            if (y < 100) {
                 move(Direction.UP);
-            } else if (y > screenHeight - 50) {
+            } else if (y > screenHeight - 100) {
                 move(Direction.DOWN);
             }
         } else if (action == MotionEvent.ACTION_UP) {

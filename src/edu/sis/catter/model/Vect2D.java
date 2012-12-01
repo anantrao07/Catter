@@ -1,7 +1,7 @@
 package edu.sis.catter.model;
 
 public class Vect2D {
-    private int x, y;
+    public int x, y;
 
     public Vect2D() {
         x = y = 0;
@@ -13,11 +13,11 @@ public class Vect2D {
     }
 
     public Vect2D add(Vect2D other) {
-        return new Vect2D(x + other.getX(), y + other.getY());
+        return new Vect2D(x + other.x, y + other.y);
     }
 
     public Vect2D sub(Vect2D other) {
-        return new Vect2D(x - other.getX(), y - other.getY());
+        return new Vect2D(x - other.x, y - other.y);
     }
 
     public void reset() {
