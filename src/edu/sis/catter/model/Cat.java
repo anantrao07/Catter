@@ -1,14 +1,21 @@
 package edu.sis.catter.model;
 
 import android.graphics.Bitmap;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 
 
 public class Cat extends GameObject {
     private static final int VELOCITY = 6;
+    private static final long TIME_STEP = 500;
+    private static final int JUMP_STEP = 60;
 
     private int screenWidth;
     private int screenHeight;
+
+    private boolean moveLeft = false;
+    private boolean moveRight = false;
+    private long lastMoved = 0;
 
     public Cat(Bitmap sprite, Vect2D position, int width, int height) {
         super(sprite, position);
@@ -27,11 +34,13 @@ public class Cat extends GameObject {
             break;
 
         case LEFT:
-            speed.x = -VELOCITY;
+            // speed.x = -VELOCITY;
+            moveLeft = true;
             break;
 
         case RIGHT:
-            speed.x = VELOCITY;
+            // speed.x = VELOCITY;
+            moveRight = true;
             break;
         }
     }
@@ -43,6 +52,16 @@ public class Cat extends GameObject {
     @Override
     public void update() {
         super.update();
+
+        if (moveRight) {
+            moveRight = !moveRight;
+            position.x += JUMP_STEP;
+            lastMoved = SystemClock.uptimeMillis();
+        } else if (moveLeft) {
+            moveLeft = !moveLeft;
+            position.x -= JUMP_STEP;
+            lastMoved = SystemClock.uptimeMillis();
+        }
 
         if (position.x < 0) {
             position.x = 0;
@@ -64,14 +83,13 @@ public class Cat extends GameObject {
                 || action == MotionEvent.ACTION_MOVE) {
             final int x = (int) e.getX();
             final int y = (int) e.getY();
+            final long now = SystemClock.uptimeMillis();
 
-            if (x < 100) {
+            if (x < 100 && now - lastMoved > TIME_STEP) {
                 move(Direction.LEFT);
-            } else if (x > screenWidth - 100) {
+            } else if (x > screenWidth - 100 && now - lastMoved > TIME_STEP) {
                 move(Direction.RIGHT);
-            }
-
-            if (y < 100) {
+            } else if (y < 100) {
                 move(Direction.UP);
             } else if (y > screenHeight - 100) {
                 move(Direction.DOWN);

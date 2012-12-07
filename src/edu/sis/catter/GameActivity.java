@@ -15,8 +15,8 @@ public class GameActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onPause() {
         game.getMainLoop().setRunning(false);
-        super.onBackPressed();
+        super.onPause();
     }
 }
