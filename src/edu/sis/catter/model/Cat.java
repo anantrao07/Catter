@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 
 public class Cat extends GameObject {
     private static final int VELOCITY = 6;
-    private static final long TIME_STEP = 500;
+    private static final long TIME_STEP = 300;
     private static final int JUMP_STEP = 60;
 
     private int screenWidth;

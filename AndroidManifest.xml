@@ -15,14 +15,20 @@
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
             android:name="edu.sis.catter.MainMenuActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.sis.catter.GameActivity"
+        <activity
+            android:name="edu.sis.catter.GameActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="edu.sis.catter.HighScoresActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

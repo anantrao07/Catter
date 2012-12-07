@@ -15,6 +15,7 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Button startButton = (Button) findViewById(R.id.start_button);
+        Button highScoresButton = (Button) findViewById(R.id.high_scores);
         Button exitButton = (Button) findViewById(R.id.exit_button);
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +25,16 @@ public class MainMenuActivity extends Activity {
                 Intent gameScreen = new Intent(getApplicationContext(),
                         GameActivity.class);
                 startActivity(gameScreen);
+            }
+        });
+
+        highScoresButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent scoresScreen = new Intent(getApplicationContext(),
+                        HighScoresActivity.class);
+                startActivity(scoresScreen);
             }
         });
 
