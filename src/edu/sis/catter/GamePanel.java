@@ -91,6 +91,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 		for (Lane lane : lanes) {
 			lane.updateCars();
 		}
+		
+		for(Lane lane : lanes) {
+			if(lane.carIntersect(cat) == true) {
+				mainLoop.setRunning(false);
+				break;
+			}
+		}
 	}
 
 	public void render(Canvas canvas) {
@@ -103,9 +110,5 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 	public MainLoop getMainLoop() {
 		return mainLoop;
-	}
-
-	private int getLaneY(int lane) {
-		return cat.JUMP_STEP * lane;
 	}
 }
