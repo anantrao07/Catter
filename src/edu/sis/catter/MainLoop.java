@@ -2,6 +2,7 @@ package edu.sis.catter;
 
 import android.graphics.Canvas;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 
@@ -26,7 +27,6 @@ public class MainLoop implements Runnable {
         while (running) {
             timeBase = SystemClock.uptimeMillis();
             canvas = null;
-
             try {
                 game.update();
                 canvas = holder.lockCanvas();

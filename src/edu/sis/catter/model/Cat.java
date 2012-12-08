@@ -6,15 +6,16 @@ import android.view.MotionEvent;
 
 
 public class Cat extends GameObject {
-    private static final int VELOCITY = 6;
     private static final long TIME_STEP = 300;
-    private static final int JUMP_STEP = 60;
+    public static final int JUMP_STEP = 40;
 
     private int screenWidth;
     private int screenHeight;
 
     private boolean moveLeft = false;
     private boolean moveRight = false;
+    private boolean moveUp = false;
+    private boolean moveDown = false;
     private long lastMoved = 0;
 
     public Cat(Bitmap sprite, Vect2D position, int width, int height) {
@@ -26,11 +27,11 @@ public class Cat extends GameObject {
     public void move(Direction dir) {
         switch (dir) {
         case UP:
-            speed.y = -VELOCITY;
+            moveUp = true;
             break;
 
         case DOWN:
-            speed.y = VELOCITY;
+            moveDown = true;
             break;
 
         case LEFT:
@@ -61,18 +62,26 @@ public class Cat extends GameObject {
             moveLeft = !moveLeft;
             position.x -= JUMP_STEP;
             lastMoved = SystemClock.uptimeMillis();
+        } else if (moveDown) {
+            moveDown = !moveDown;
+            position.y += JUMP_STEP;
+            lastMoved = SystemClock.uptimeMillis();
+        } else if (moveUp) {
+            moveUp = !moveUp;
+            position.y -= JUMP_STEP;
+            lastMoved = SystemClock.uptimeMillis();
         }
 
         if (position.x < 0) {
-            position.x = 0;
-        } else if (position.x >= screenWidth - sprite.getWidth()) {
-            position.x = screenWidth - sprite.getWidth();
+        	position.x += JUMP_STEP;
+        } else if (position.x > screenWidth - sprite.getWidth()) {
+            position.x -= JUMP_STEP;
         }
 
         if (position.y < 0) {
-            position.y = 0;
-        } else if (position.y >= screenHeight - sprite.getHeight()) {
-            position.y = screenHeight - sprite.getHeight();
+        	position.y += JUMP_STEP;
+        } else if (position.y > screenHeight - sprite.getHeight()) {
+        	position.y -= JUMP_STEP;
         }
     }
 
