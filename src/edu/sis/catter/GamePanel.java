@@ -5,7 +5,6 @@ import java.util.Random;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,8 +23,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // 480x800
     private static final int MAX_TIME = 20 * 1000; // 20s
     private static final int OBSTACLE_VELOCITY = 3;
-
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     private GameActivity gameActivity;
     private MainLoop mainLoop;
@@ -156,13 +154,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                                             gameActivity.addHighScore(input
                                                     .getText().toString(),
                                                     score);
-                                            Intent mainScreen = new Intent(
-                                                    gameActivity
-                                                            .getApplicationContext(),
-                                                    MainMenuActivity.class);
-                                            killGameThread();
-                                            gameActivity
-                                                    .startActivity(mainScreen);
+                                            gameActivity.finish();
                                         }
                                     }).show();
                 } else {
@@ -172,7 +164,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         });
     }
 
-    private void killGameThread() {
+    public void killGameThread() {
         boolean retry = true;
         while (retry) {
             try {
@@ -189,11 +181,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent mainScreen = new Intent(gameActivity
-                                .getApplicationContext(),
-                                MainMenuActivity.class);
-                        killGameThread();
-                        gameActivity.startActivity(mainScreen);
+                        gameActivity.finish();
                     }
                 }).show();
     }

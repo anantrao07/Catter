@@ -26,6 +26,7 @@ public class GameActivity extends Activity {
     @Override
     public void onPause() {
         game.getMainLoop().setRunning(false);
+        game.killGameThread();
         super.onPause();
     }
 
