@@ -16,7 +16,7 @@
         <activity
             android:name="edu.sis.catter.MainMenuActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="edu.sis.catter.HighScoresActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

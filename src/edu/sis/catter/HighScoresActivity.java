@@ -7,21 +7,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceView;
 
 
 public class HighScoresActivity extends Activity {
-    public static final String CATTER_PREFS_NAME = "catter_prefs";
-    public static final String CATTER_SCORE_PREFIX = "catter_score_";
-    public static final String CATTER_NAME_PREFIX = "catter_name_";
-    public static final String DEFAULT_NAME = "---";
-    public static final int DEFAULT_SCORE = 0;
-
     private HighScoresPanel scoresPanel;
     private List<String> scores = new ArrayList<String>();
 
@@ -35,42 +25,35 @@ public class HighScoresActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences prefs = getSharedPreferences(CATTER_PREFS_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(
+                Constants.Prefs.CATTER_PREFS_NAME, Context.MODE_PRIVATE);
         for (int i = 0; i < 10; ++i) {
             StringBuffer text = new StringBuffer();
             text.append(i + 1)
                     .append(". ")
-                    .append(prefs.getString(CATTER_NAME_PREFIX + i,
-                            DEFAULT_NAME))
+                    .append(prefs.getString(Constants.Prefs.CATTER_NAME_PREFIX
+                            + i, Constants.Prefs.DEFAULT_NAME))
                     .append(": ")
-                    .append(prefs
-                            .getInt(CATTER_SCORE_PREFIX + i, DEFAULT_SCORE));
+                    .append(prefs.getInt(Constants.Prefs.CATTER_SCORE_PREFIX
+                            + i, Constants.Prefs.DEFAULT_SCORE));
             scores.add(text.toString());
-            Log.d("catter high scores", text.toString());
         }
     }
 
     private class HighScoresPanel extends SurfaceView {
-        private Paint paint;
 
         public HighScoresPanel(Context context) {
             super(context);
             setWillNotDraw(false);
-            paint = new Paint();
-            paint.setColor(Color.WHITE);
-            paint.setTypeface(Typeface.SANS_SERIF);
-            paint.setTextSize(25);
-            paint.setAntiAlias(true);
         }
 
         @Override
         public void onDraw(Canvas c) {
-            c.drawColor(Color.BLACK);
+            c.drawColor(Constants.BACKGROUND);
             int i = 1;
-            c.drawText("High scores:", 100, 30, paint);
+            c.drawText("High scores:", 100, 50, Constants.HEADER_FONT);
             for (String s : scores) {
-                c.drawText(s, 100, 80 + 30 * i++, paint);
+                c.drawText(s, 100, 100 + 30 * i++, Constants.NORMAL_FONT);
             }
         }
     }

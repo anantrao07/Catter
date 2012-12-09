@@ -31,22 +31,22 @@ public class GameActivity extends Activity {
 
     public boolean isScoreBigEnough(int score) {
         SharedPreferences prefs = getSharedPreferences(
-                HighScoresActivity.CATTER_PREFS_NAME, Context.MODE_PRIVATE);
+                Constants.Prefs.CATTER_PREFS_NAME, Context.MODE_PRIVATE);
         int lowest = prefs.getInt("catter_score_9",
-                HighScoresActivity.DEFAULT_SCORE);
+                Constants.Prefs.DEFAULT_SCORE);
         return score > lowest;
     }
 
     public void addHighScore(String name, int score) {
         List<Pair<String, Integer>> scoresList = new ArrayList<Pair<String, Integer>>();
         SharedPreferences prefs = getSharedPreferences(
-                HighScoresActivity.CATTER_PREFS_NAME, Context.MODE_PRIVATE);
+                Constants.Prefs.CATTER_PREFS_NAME, Context.MODE_PRIVATE);
         for (int i = 0; i < 10; ++i) {
             scoresList.add(Pair.create(prefs.getString(
-                    HighScoresActivity.CATTER_NAME_PREFIX + i,
-                    HighScoresActivity.DEFAULT_NAME), prefs.getInt(
-                    HighScoresActivity.CATTER_SCORE_PREFIX + i,
-                    HighScoresActivity.DEFAULT_SCORE)));
+                    Constants.Prefs.CATTER_NAME_PREFIX + i,
+                    Constants.Prefs.DEFAULT_NAME), prefs.getInt(
+                    Constants.Prefs.CATTER_SCORE_PREFIX + i,
+                    Constants.Prefs.DEFAULT_SCORE)));
         }
         scoresList.add(Pair.create(name, score));
 
@@ -68,8 +68,8 @@ public class GameActivity extends Activity {
         Editor e = prefs.edit();
         int i = 0;
         for (Pair<String, Integer> p : scoresList.subList(0, 10)) {
-            e.putString(HighScoresActivity.CATTER_NAME_PREFIX + i, p.first);
-            e.putInt(HighScoresActivity.CATTER_SCORE_PREFIX + i, p.second);
+            e.putString(Constants.Prefs.CATTER_NAME_PREFIX + i, p.first);
+            e.putInt(Constants.Prefs.CATTER_SCORE_PREFIX + i, p.second);
             ++i;
         }
         e.commit();

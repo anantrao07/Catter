@@ -1,8 +1,12 @@
 package edu.sis.catter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
@@ -45,6 +49,41 @@ public class MainMenuActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    public static class MenuSurfaceView extends SurfaceView {
+        private String title;
+        private int titleXposition;
+
+        public MenuSurfaceView(Context context) {
+            super(context);
+            init();
+        }
+
+        public MenuSurfaceView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init();
+        }
+
+        public MenuSurfaceView(Context context, AttributeSet attrs, int i) {
+            super(context, attrs, i);
+            init();
+        }
+
+        private void init() {
+            setWillNotDraw(false);
+            title = getContext().getString(R.string.title);
+            int textWidth = (int) Constants.HEADER_FONT.measureText(title);
+            titleXposition = (800 - textWidth) / 2; // hardcoded because
+                                                    // getWidth() wouldn't work
+                                                    // no matter what
+        }
+
+        @Override
+        public void onDraw(Canvas c) {
+            c.drawColor(Constants.BACKGROUND);
+            c.drawText(title, titleXposition, 60, Constants.HEADER_FONT);
+        }
     }
 
 }

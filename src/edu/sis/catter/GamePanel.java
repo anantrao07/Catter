@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -40,8 +37,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Cat cat;
     private LinkedList<Lane> lanes = new LinkedList<Lane>();
 
-    private Paint paint;
-
     public GamePanel(GameActivity context) {
         super(context);
         gameActivity = context;
@@ -49,12 +44,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         gameThread = new Thread(mainLoop);
         getHolder().addCallback(this);
         setFocusable(true);
-
-        paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTypeface(Typeface.SANS_SERIF);
-        paint.setTextSize(25);
-        paint.setAntiAlias(true);
     }
 
     @Override
@@ -126,13 +115,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void render(Canvas canvas) {
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Constants.BACKGROUND);
         cat.render(canvas);
         for (Lane lane : lanes) {
             lane.renderCars(canvas);
         }
 
-        canvas.drawText("Time left: " + String.valueOf(score), 10, 30, paint);
+        canvas.drawText("Time left: " + String.valueOf(score), 10, 30,
+                Constants.NORMAL_FONT);
     }
 
     private void lose() {
