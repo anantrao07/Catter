@@ -3,7 +3,6 @@ package edu.sis.catter.model;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 
 
 public class GameObject {
@@ -16,7 +15,8 @@ public class GameObject {
         this.sprite = sprite;
         this.position = position;
         this.speed = new Vect2D();
-        rect = new Rect(position.x, position.y, position.x + sprite.getWidth(), position.y + sprite.getHeight());
+        rect = new Rect(position.x, position.y, position.x + sprite.getWidth(),
+                position.y + sprite.getHeight());
     }
 
     public void update() {
@@ -32,8 +32,7 @@ public class GameObject {
     }
 
     public Rect getBoundingRect() {
-        return new Rect(position.x, position.y, position.x + sprite.getWidth(),
-                position.y + sprite.getHeight());
+        return rect;
     }
 
     public Vect2D getPosition() {
@@ -51,8 +50,8 @@ public class GameObject {
     public void setSpeed(Vect2D speed) {
         this.speed = speed;
     }
-    
+
     public boolean intersect(GameObject obj) {
-    	return Rect.intersects(rect, obj.rect);
+        return Rect.intersects(rect, obj.rect);
     }
 }

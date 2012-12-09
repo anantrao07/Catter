@@ -7,5 +7,9 @@
     <string name="start_game">Start game</string>
     <string name="high_scores">High scores</string>
     <string name="exit">Exit</string>
+    <string name="lose">You lost</string>
+    <string name="win">You won</string>
+    <string name="win_but_fail">You won, but you didn\'t make it into high scores.</string>
+    <string name="enter_name">You managed to top one of the highest scores. Please enter your name:</string>
 
 </resources>

@@ -35,12 +35,10 @@ public class Cat extends GameObject {
             break;
 
         case LEFT:
-            // speed.x = -VELOCITY;
             moveLeft = true;
             break;
 
         case RIGHT:
-            // speed.x = VELOCITY;
             moveRight = true;
             break;
         }
@@ -73,15 +71,15 @@ public class Cat extends GameObject {
         }
 
         if (position.x < 0) {
-        	position.x += JUMP_STEP;
+            position.x += JUMP_STEP;
         } else if (position.x > screenWidth - sprite.getWidth()) {
             position.x -= JUMP_STEP;
         }
 
         if (position.y < 0) {
-        	position.y += JUMP_STEP;
+            position.y += JUMP_STEP;
         } else if (position.y > screenHeight - sprite.getHeight()) {
-        	position.y -= JUMP_STEP;
+            position.y -= JUMP_STEP;
         }
     }
 
@@ -94,14 +92,16 @@ public class Cat extends GameObject {
             final int y = (int) e.getY();
             final long now = SystemClock.uptimeMillis();
 
-            if (x < 100 && now - lastMoved > TIME_STEP) {
-                move(Direction.LEFT);
-            } else if (x > screenWidth - 100 && now - lastMoved > TIME_STEP) {
-                move(Direction.RIGHT);
-            } else if (y < 100) {
-                move(Direction.UP);
-            } else if (y > screenHeight - 100) {
-                move(Direction.DOWN);
+            if (now - lastMoved > TIME_STEP) {
+                if (x < 100) {
+                    move(Direction.LEFT);
+                } else if (x > screenWidth - 100) {
+                    move(Direction.RIGHT);
+                } else if (y < 100) {
+                    move(Direction.UP);
+                } else if (y > screenHeight - 100) {
+                    move(Direction.DOWN);
+                }
             }
         } else if (action == MotionEvent.ACTION_UP) {
             stop();

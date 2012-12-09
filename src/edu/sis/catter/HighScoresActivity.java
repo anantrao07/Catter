@@ -1,21 +1,17 @@
 package edu.sis.catter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.SurfaceView;
 
 
@@ -79,47 +75,4 @@ public class HighScoresActivity extends Activity {
         }
     }
 
-    // TODO paste those two functions below wherever they are needed
-    public boolean isScoreBigEnough(int score) {
-        SharedPreferences prefs = getSharedPreferences(CATTER_PREFS_NAME,
-                Context.MODE_PRIVATE);
-        int lowest = prefs.getInt("catter_score_9", DEFAULT_SCORE);
-        return score > lowest;
-    }
-
-    public void addHighScore(String name, int score) {
-        List<Pair<String, Integer>> scoresList = new ArrayList<Pair<String, Integer>>();
-        SharedPreferences prefs = getSharedPreferences(CATTER_PREFS_NAME,
-                Context.MODE_PRIVATE);
-        for (int i = 0; i < 10; ++i) {
-            scoresList.add(Pair.create(
-                    prefs.getString(CATTER_NAME_PREFIX + i, DEFAULT_NAME),
-                    prefs.getInt(CATTER_SCORE_PREFIX + i, DEFAULT_SCORE)));
-        }
-        scoresList.add(Pair.create(name, score));
-
-        Collections.sort(scoresList, new Comparator<Pair<String, Integer>>() {
-
-            @Override
-            public int compare(Pair<String, Integer> lhs,
-                    Pair<String, Integer> rhs) {
-                if (lhs.second > rhs.second) {
-                    return -1;
-                } else if (lhs.second < rhs.second) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        });
-
-        Editor e = prefs.edit();
-        int i = 0;
-        for (Pair<String, Integer> p : scoresList.subList(0, 10)) {
-            e.putString(CATTER_NAME_PREFIX + i, p.first);
-            e.putInt(CATTER_SCORE_PREFIX + i, p.second);
-            ++i;
-        }
-        e.commit();
-    }
 }

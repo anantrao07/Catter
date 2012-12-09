@@ -2,7 +2,6 @@ package edu.sis.catter;
 
 import android.graphics.Canvas;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 
